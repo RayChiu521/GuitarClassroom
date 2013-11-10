@@ -3,8 +3,6 @@
 <fieldset>
   <legend>Guitar classroom</legend>
 
-	<%= render 'shared/errors', obj: @user %>
-
   <%= text_control_group(f, 'account') %>
   <%= password_control_group(f, 'password') %>
 
@@ -13,5 +11,6 @@
 			<%= f.submit "Log in", class: "btn btn-primary" %>
 		</div>
 	</div>
-</div>
+  <%= render 'layouts/messages' %>
+</fieldset>
 <% end %>
