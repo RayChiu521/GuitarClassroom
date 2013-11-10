@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GuitarClassroom</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div id="main" role="main">
+    <div class="container">
+       <div class="row">
+        <div class="span6">
+        	<%= render 'layouts/messages' %>
+          <%= yield %>
+        </div>
+      </div>
+      <footer>
+      </footer>
+    </div> <!--! end of .container -->
+  </div> <!--! end of #main -->
+</body>
+</html>

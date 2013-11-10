@@ -1,4 +1,11 @@
 GuitarClassroom::Application.routes.draw do
+
+  get 'log_in' => 'sessions#new', as: 'log_in'
+  get 'dashboard' => 'dashboard#show', as: 'dashboard'
+  root 'dashboard#show'
+
+  resources :sessions, only: [:create, :destroy]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -39,7 +46,7 @@ GuitarClassroom::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'
