@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131110062751) do
+ActiveRecord::Schema.define(version: 20131110063102) do
 
   create_table "groups", force: true do |t|
     t.string  "title",                    null: false
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20131110062751) do
     t.string   "cellphone",     default: ""
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "password_salt"
   end
 
 end
