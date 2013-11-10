@@ -11,11 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131110064232) do
+ActiveRecord::Schema.define(version: 20131110143247) do
+
+  create_table "arragements", force: true do |t|
+    t.integer "user_id"
+    t.integer "lesson_id"
+  end
+
+  add_index "arragements", ["lesson_id"], name: "index_arragements_on_lesson_id", using: :btree
+  add_index "arragements", ["user_id"], name: "index_arragements_on_user_id", using: :btree
 
   create_table "groups", force: true do |t|
     t.string  "title",                    null: false
     t.boolean "is_admin", default: false
+  end
+
+  create_table "lessons", force: true do |t|
+    t.datetime "lesson_date"
+    t.text     "content",     default: ""
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "memberships", force: true do |t|

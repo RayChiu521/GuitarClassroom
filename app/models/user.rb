@@ -7,6 +7,9 @@ class User < ActiveRecord::Base
 	has_many :groups, through: :memberships, dependent: :destroy
 	has_one :user_password, dependent: :destroy
 
+  has_many :arragements
+  has_many :lessons, through: :arragements, dependent: :destroy
+
 	validates :account, presence: true, uniqueness: true
 	validates :password, confirmation: true, presence: { on: :create }
 	validates :password_confirmation, presence: { on: :create }
