@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131110063102) do
+ActiveRecord::Schema.define(version: 20131110064232) do
 
   create_table "groups", force: true do |t|
     t.string  "title",                    null: false
@@ -26,16 +26,24 @@ ActiveRecord::Schema.define(version: 20131110063102) do
   add_index "memberships", ["group_id"], name: "index_memberships_on_group_id", using: :btree
   add_index "memberships", ["user_id"], name: "index_memberships_on_user_id", using: :btree
 
-  create_table "users", force: true do |t|
-    t.string   "account",                    null: false
+  create_table "user_passwords", force: true do |t|
+    t.integer  "user_id"
     t.string   "password_hash"
-    t.string   "nickname",      default: ""
-    t.string   "gender",        default: ""
-    t.string   "email",         default: ""
-    t.string   "cellphone",     default: ""
+    t.string   "password_salt"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "password_salt"
+  end
+
+  add_index "user_passwords", ["user_id"], name: "index_user_passwords_on_user_id", using: :btree
+
+  create_table "users", force: true do |t|
+    t.string   "account",                 null: false
+    t.string   "nickname",   default: ""
+    t.string   "gender",     default: ""
+    t.string   "email",      default: ""
+    t.string   "cellphone",  default: ""
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
