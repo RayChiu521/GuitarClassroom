@@ -12,12 +12,17 @@ class User < ActiveRecord::Base
 	validates :password_confirmation, presence: { on: :create }
 
 	before_save :encrypt_password
+	after_create :default_membership
 
 	def encrypt_password
     if password.present?
     	self.user_password = UserPassword.new
     	self.user_password.generate_password(password)
     end
+  end
+
+  def default_membership
+  	self.groups << Group.default_group if self.groups.blank?
   end
 
   def self.authenticate(account, password)
