@@ -50,6 +50,7 @@ gem 'bcrypt-ruby', '~> 3.0.0', :require => 'bcrypt'
 group :development do
   gem 'quiet_assets'
   gem 'pry'
+  gem 'rspec-rails'
 end
 
 group :production do
