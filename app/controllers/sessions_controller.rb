@@ -15,8 +15,8 @@ class SessionsController < ApplicationController
       flash[:notice] = "Logged in!"
       redirect_to root_url
     else
-      flash.now.alert = "Invalid account or password"
-      render 'new', layout: 'single_page'
+      flash.alert = "Invalid account or password"
+      redirect_to log_in_path
     end
 	end
 
