@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   has_many :arragements
   has_many :lessons, through: :arragements, dependent: :destroy
 
+  has_many :teachings, class_name: 'Lesson', foreign_key: 'user_id'
+
 	validates :account, presence: true, uniqueness: true
 	validates :password, confirmation: true, presence: { on: :create }
 	validates :password_confirmation, presence: { on: :create }
