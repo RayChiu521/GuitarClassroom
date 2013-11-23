@@ -7,8 +7,8 @@ class User < ActiveRecord::Base
 	has_many :groups, through: :memberships, dependent: :destroy
 	has_one :user_password, dependent: :destroy
 
-  has_many :arragements
-  has_many :lessons, through: :arragements, dependent: :destroy
+  has_many :arrangements
+  has_many :lessons, through: :arrangements, dependent: :destroy
 
   has_many :teachings, class_name: 'Lesson', foreign_key: 'user_id'
 
