@@ -1,5 +1,5 @@
 # encoding: utf-8
-class Arragement < ActiveRecord::Base
+class Arrangement < ActiveRecord::Base
 
 	belongs_to :user
 	belongs_to :lesson
