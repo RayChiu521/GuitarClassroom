@@ -30,6 +30,10 @@ class User < ActiveRecord::Base
   	self.groups << Group.default_group if self.groups.blank?
   end
 
+  def is_teacher?
+    !self.in?(Group.teacher.users).blank?
+  end
+
   def self.authenticate(account, password)
     user = find_by_account(account)
     if user && user.user_password && user.user_password.authenticate_password(password)
