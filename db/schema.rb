@@ -11,15 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131123082237) do
+ActiveRecord::Schema.define(version: 20131123124253) do
 
-  create_table "arragements", force: true do |t|
+  create_table "arrangements", force: true do |t|
     t.integer "user_id"
     t.integer "lesson_id"
   end
 
-  add_index "arragements", ["lesson_id"], name: "index_arragements_on_lesson_id", using: :btree
-  add_index "arragements", ["user_id"], name: "index_arragements_on_user_id", using: :btree
+  add_index "arrangements", ["lesson_id"], name: "index_arrangements_on_lesson_id", using: :btree
+  add_index "arrangements", ["user_id"], name: "index_arrangements_on_user_id", using: :btree
 
   create_table "groups", force: true do |t|
     t.string  "title",                    null: false
