@@ -37,4 +37,23 @@ describe User do
 			expect { duplicate_user.save! }.to raise_error
 		end
 	end
+
+	describe "roles" do
+
+		let!(:teacher) { build_teacher_user(account: "Teacher") }
+		let!(:student) { build_student_user(account: "Student") }
+		subject { teacher }
+		subject { student }
+
+		it "is_teacher?" do
+			teacher.save
+			teacher.is_teacher?.should == true
+		end
+
+		it "not is_teacher?" do
+			student.save
+			student.is_teacher?.should_not == true
+		end
+
+	end
 end
