@@ -40,8 +40,8 @@ describe User do
 
 	describe "roles" do
 
-		let!(:teacher) { build_teacher_user(account: "Teacher") }
-		let!(:student) { build_student_user(account: "Student") }
+		let!(:teacher) { build_teacher_user }
+		let!(:student) { build_student_user }
 		subject { teacher }
 		subject { student }
 
