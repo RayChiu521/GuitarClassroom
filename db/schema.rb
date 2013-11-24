@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131123124253) do
+ActiveRecord::Schema.define(version: 20131124120638) do
 
   create_table "arrangements", force: true do |t|
     t.integer "user_id"
@@ -31,10 +31,10 @@ ActiveRecord::Schema.define(version: 20131123124253) do
     t.text     "content",     default: ""
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
+    t.integer  "teacher_id"
   end
 
-  add_index "lessons", ["user_id"], name: "index_lessons_on_user_id", using: :btree
+  add_index "lessons", ["teacher_id"], name: "index_lessons_on_teacher_id", using: :btree
 
   create_table "memberships", force: true do |t|
     t.integer "user_id"

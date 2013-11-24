@@ -6,7 +6,7 @@ class Lesson < ActiveRecord::Base
 	has_many :arrangements
 	has_many :students, through: :arrangements, source: :user, dependent: :destroy
 
-	belongs_to :teacher, class_name: 'User', foreign_key: 'user_id'
+	belongs_to :teacher, class_name: 'User', foreign_key: 'teacher_id'
 
 	# validates :lesson_date, presence: true
 	validates :teacher, presence: true
@@ -32,7 +32,7 @@ class Lesson < ActiveRecord::Base
 	  end
 
 	  def validate_arrangement_for_others
-	  	if !self.current_user.id.in?(self.student_ids) && !self.current_user.is_teacher?
+	  	if self.current_user && !self.current_user.id.in?(self.student_ids) && !self.current_user.is_teacher?
 				errors.add(:students, "You can't arrangement an lesson for other students.")
 			end
 	  end
