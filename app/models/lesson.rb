@@ -28,7 +28,9 @@ class Lesson < ActiveRecord::Base
 	private
 
 		def validate_teacher_group
-			errors.add(:teacher, "#{self.teacher.account} isn't a teacher.") unless self.teacher.is_teacher?
+			if self.teacher
+				errors.add(:teacher, "#{self.teacher.account} isn't a teacher.") unless self.teacher.is_teacher?
+			end
 	  end
 
 	  def validate_arrangement_for_others
