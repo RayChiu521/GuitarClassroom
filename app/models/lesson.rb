@@ -14,6 +14,8 @@ class Lesson < ActiveRecord::Base
 	validates :current_user, presence: true
 	validate :validate_teacher_group, :validate_arrangement_for_others
 
+	before_destroy :validate_arrangement_for_others
+
 
 	def to_json(options={})
 		range = {
@@ -36,6 +38,7 @@ class Lesson < ActiveRecord::Base
 	  def validate_arrangement_for_others
 	  	if self.current_user && !self.current_user.id.in?(self.student_ids) && !self.current_user.is_teacher?
 				errors.add(:students, "You can't arrangement an lesson for other students.")
+				return false
 			end
 	  end
 
