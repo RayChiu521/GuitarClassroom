@@ -21,11 +21,6 @@ end
 
 
 def build_lesson(attributes={})
-	teacher = build_teacher_user
-	student = build_student_user
-	lesson = Lesson.new({ current_user: teacher,
-												teacher: teacher,
-												students: [student],
-												lesson_date: Time.now,
+	lesson = Lesson.new({ lesson_date: Time.now,
 												content: "content"})
 end

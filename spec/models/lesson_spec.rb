@@ -43,11 +43,25 @@ describe Lesson do
 			lesson.valid?.should_not == true
 		end
 
-		it "successful situation" do
-			lesson.teacher.save
+		it "successful save" do
+			teacher.save
+			student1.save
+			lesson.current_user = teacher
+			lesson.teacher = teacher
+			lesson.students = [student1]
 			lesson.save
 			lesson.valid?.should == true
 		end
 
+		it "successful destroy" do
+			teacher.save
+			student1.save
+			lesson.current_user = teacher
+			lesson.teacher = teacher
+			lesson.students = [student1]
+			lesson.save
+			lesson.destroy
+			Lesson.all.size.should == 0
+		end
 	end
 end
