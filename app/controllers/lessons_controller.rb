@@ -1,13 +1,22 @@
 class LessonsController < ApplicationController
 
-	# protect_from_forgery :except => [:create, :update, :destroy]
-	# skip_before_action :require_login, :only=>[:create, :update, :destroy]
+	# protect_from_forgery :except => [:index, :create, :update, :destroy]
+	# skip_before_action :require_login, :only=>[:index, :create, :update, :destroy]
 	before_action :set_lesson, only: [:show, :edit, :update, :destroy]
 
 	def index
+		@lessons = Lesson.all
+		respond_to do |format|
+			format.html
+			format.json { render json: @lessons }
+		end
 	end
 
 	def show
+		respond_to do |format|
+			format.html
+			format.json { render json: @lesson }
+		end
 	end
 
 	def new
