@@ -1,8 +1,8 @@
 GuitarClassroom::Application.routes.draw do
 
   get 'log_in' => 'sessions#new', as: 'log_in'
-  get 'dashboard' => 'dashboard#show', as: 'dashboard'
-  root 'dashboard#show'
+  get 'dashboard' => 'dashboard#index', as: 'dashboard'
+  root 'dashboard#index'
 
   resources :sessions, only: [:create, :destroy]
   resources :users, only: [:new, :create]
