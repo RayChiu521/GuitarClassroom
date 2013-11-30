@@ -5,10 +5,18 @@ class ApplicationController < ActionController::Base
 
   before_action :require_login
 
-  helper_method :current_user, :logged_in?
+  helper_method :current_user, :logged_in?, :is_admin?, :is_teacher?
 
   def logged_in?
     !!current_user
+  end
+
+  def is_admin?
+    current_user && current_user.is_admin?
+  end
+
+  def is_teacher?
+    current_user && current_user.is_teacher?
   end
 
   private

@@ -30,6 +30,10 @@ class User < ActiveRecord::Base
   	self.groups << Group.default_group if self.groups.blank?
   end
 
+  def is_admin?
+    !self.in?(Group.admin.users).blank?
+  end
+
   def is_teacher?
     !self.in?(Group.teacher.users).blank?
   end
