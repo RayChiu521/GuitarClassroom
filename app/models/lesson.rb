@@ -17,6 +17,17 @@ class Lesson < ActiveRecord::Base
 	before_destroy :validate_arrangement_for_others
 
 
+	def self.period(beginning = nil, ending = nil)
+		beginning = Time.now.beginning_of_month if beginning.nil?
+		ending = Time.now.end_of_month if ending.nil?
+		where(["(beginning <= ? and beginning >= ?) or (ending <= ? and ending >= ?)",
+					 beginning, ending, ending, beginning])
+	end
+
+	def calendar_title
+		"#{self.teacher.nickname} - #{self.students.map { |s| s.nickname }.join(", ")}"
+	end
+
 	def to_json(options={})
 		range = {
 			include: [
