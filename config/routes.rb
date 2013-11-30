@@ -5,8 +5,9 @@ GuitarClassroom::Application.routes.draw do
   root 'lessons#index'
 
   resources :sessions, only: [:create, :destroy]
-  resources :users
-  resources :lessons, except: [:destroy]
+  resources :users, except: [:destroy]
+  resources :lessons
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
