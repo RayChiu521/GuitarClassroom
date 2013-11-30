@@ -1,0 +1,106 @@
+
+<div id="lessonOperations">
+	<a data-remote="true" href="/lessons/new" id="saveLesson"></a>
+</div>
+
+<!-- Modal -->
+<div id="lessonModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Lesson</h4>
+      </div>
+      <div class="modal-body">
+				<div id="lessonContainer"></div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Calendar -->
+<div id="calendar"></div>
+
+<%= content_for :head do %>
+<%= stylesheet_link_tag    "fullcalendar", media: "all" %>
+<%= stylesheet_link_tag		 "bootstrap-datetimepicker.min", media: "all" %>
+<%= javascript_include_tag "jquery-ui.custom.min" %>
+<%= javascript_include_tag "fullcalendar.min" %>
+<%= javascript_include_tag "bootstrap-datetimepicker" %>
+
+<script type="text/javascript" charset="utf-8">
+	$(document).ready(function() {
+
+		var lessonEvent = {
+			$saveLesson: $('#saveLesson'),
+			new: function (start, end) {
+				this.$saveLesson
+						.attr('href', '/lessons/new?beginning=' + start + '&ending=' + end)
+						.click();
+			},
+			edit: function (id) {
+				this.$saveLesson
+						.attr('href', '/lessons/' + id + '/edit')
+				    .click();
+			}
+		};
+
+
+		var calendar = window.calendar = $('#calendar').fullCalendar({
+			editable: false,
+			droppable: false,
+			selectable: true,
+			selectHelper: true,
+			select: function(start, end, allDay) {
+				lessonEvent.new(start, end);
+				calendar.fullCalendar('unselect');
+			},
+			eventClick: function(event) {
+				lessonEvent.edit(event.id);
+				return false;
+			},
+			events: [
+				<% @lessons.each do |lesson| %>
+					{
+						id: <%= lesson.id %>,
+						start: "<%= lesson.beginning %>",
+						end: "<%= lesson.ending %>",
+						title: "<%= lesson.calendar_title %>",
+						allDay: false
+					},
+				<% end %>
+			],
+			viewRender: function(view, element) {
+        if (calendar) {
+        	var calendarView = calendar.fullCalendar('getView'),
+        		beginning = $.fullCalendar.formatDate(calendarView.start, 'yyyy-MM-dd HH:mm'),
+        		ending = $.fullCalendar.formatDate(calendarView.end, 'yyyy-MM-dd HH:mm');
+        	$.ajax({
+        	url: "<%= lessons_path %>/?beginning=" + beginning + "&ending=" + ending,
+	        	dataType: 'json',
+	        	type: 'get',
+	        	cache: false
+	        })
+	        	.done(function (data) {
+	        		calendar.fullCalendar('removeEvents');
+	        		if (data && data.length) {
+	        			for (var i = 0; i < data.length; i++) {
+	        				calendar.fullCalendar('renderEvent',
+										{
+											id: data[i].id,
+											title: data[i].calendar_title,
+											start: data[i].beginning,
+											end: data[i].ending,
+											allDay: false
+										},
+										true
+									);
+	        			}
+	        		}
+	        	});
+        }
+	    }
+		});
+	});
+</script>
+<% end %>

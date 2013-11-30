@@ -5,10 +5,10 @@ class LessonsController < ApplicationController
 	before_action :set_lesson, only: [:show, :edit, :update, :destroy]
 
 	def index
-		@lessons = Lesson.all
+		@lessons = Lesson.period(params[:beginning], params[:endding])
 		respond_to do |format|
 			format.html
-			format.json { render json: @lessons }
+			format.json { render json: @lessons.include(methods: [:calendar_title]) }
 		end
 	end
 
@@ -20,6 +20,11 @@ class LessonsController < ApplicationController
 	end
 
 	def new
+		@lesson = Lesson.new(beginning: params[:beginning], ending: params[:ending])
+		respond_to do |format|
+			format.html
+			format.js
+		end
 	end
 
 	def create
@@ -30,16 +35,22 @@ class LessonsController < ApplicationController
 			respond_to do |format|
 				format.html { redirect_to :index }
 				format.json { render json: @lesson }
+				format.js
 			end
 		else
 			respond_to do |format|
 				format.html { render :new }
 				format.json { render json: render_failure_by_json }
+				format.js
 			end
 		end
 	end
 
 	def edit
+		respond_to do |format|
+			format.html
+			format.js
+		end
 	end
 
 	def update
@@ -47,11 +58,13 @@ class LessonsController < ApplicationController
 			respond_to do |format|
 				format.html { redirect_to :index }
 				format.json { render json: @lesson }
+				format.js
 			end
 		else
 			respond_to do |format|
 				format.html { render :edit }
 				format.json { render json: render_failure_by_json }
+				format.js
 			end
 		end
 	end
@@ -61,11 +74,13 @@ class LessonsController < ApplicationController
 			respond_to do |format|
 				format.html { redirect_to :index }
 				format.json { render json: @lesson}
+				format.js
 			end
 		else
 			respond_to do |format|
 				format.html { redirect_to :back }
 				format.json { render json: render_failure_by_json }
+				format.js
 			end
 		end
 	end
@@ -78,7 +93,7 @@ class LessonsController < ApplicationController
 		end
 
 		def lesson_params
-			params.require(:lesson).permit(:lesson_date, :content, :teacher_id, student_ids: [])
+			params.require(:lesson).permit(:beginning, :ending, :content, :teacher_id, student_ids: [])
 		end
 
 		def render_failure_by_json

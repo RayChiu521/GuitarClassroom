@@ -1,0 +1,55 @@
+<%= form_for @lesson, remote: true, html: { class: "form-horizontal" } do |f| %>
+
+	<div class="form-group">
+		<%= f.label :beginning, class: "col-md-3 control-label" %>
+		<div id="lesson_beginning" class="input-group col-md-9 input-append">
+	    <input data-format="yyyy-MM-dd hh:mm" type="text" id="lesson_lesson_beginning" name="lesson[beginning]" value="<%= display_datetime(@lesson.beginning) %>" class="form-control" />
+	    <span class="add-on input-group-addon">
+	      <i data-time-icon="glyphicon glyphicon-time" data-date-icon="glyphicon glyphicon-calendar"></i>
+	    </span>
+	  </div>
+	</div>
+
+	<div class="form-group">
+		<%= f.label :ending, class: "col-md-3 control-label" %>
+		<div id="lesson_ending" class="input-group col-md-9 input-append">
+	    <input data-format="yyyy-MM-dd hh:mm" type="text" id="lesson_lesson_ending" name="lesson[ending]" value="<%= display_datetime(@lesson.ending) %>" class="form-control" />
+	    <span class="add-on input-group-addon">
+	      <i data-time-icon="glyphicon glyphicon-time" data-date-icon="glyphicon glyphicon-calendar"></i>
+	    </span>
+	  </div>
+	</div>
+
+	<div class="form-group">
+		<%= f.label :teacher, class: "col-md-3 control-label" %>
+		<div class="col-md-9">
+			<%= f.collection_select :teacher_id, Group.teacher.users, :id, :nickname, { prompt: false }, { class: "form-control" } %>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<%= f.label :students, class: "col-md-3 control-label" %>
+		<div class="col-md-9">
+			<%= f.collection_select :student_ids, Group.student.users, :id, :nickname, {}, { class: "form-control", multiple: true } %>
+		</div>
+	</div>
+
+	<%= textarea_control_group(f, 'content') %>
+
+	<div class="form-group">
+		<div class="col-md-offset-3 col-md-9">
+			<%= f.submit @lesson.new_record? ? "Create" : "Edit", class: "btn btn-success" %>
+			<% if !@lesson.new_record? %>
+				<%= link_to "Destroy", lesson_path(@lesson), class: "btn btn-danger", remote: true, method: :delete %>
+			<% end %>
+		</div>
+	</div>
+<% end %>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#lesson_beginning, #lesson_ending').datetimepicker({
+		 	pickSeconds: false
+		});
+	});
+</script>

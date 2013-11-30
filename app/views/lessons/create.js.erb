@@ -1,0 +1,15 @@
+<% if @lesson.errors.any? %>
+	alert('<%= @lesson.errors.full_messages.to_sentence %>');
+<% else %>
+	calendar.fullCalendar('renderEvent',
+		{
+			id: <%= @lesson.id %>,
+			title: "<%= @lesson.calendar_title %>",
+			start: "<%= @lesson.beginning %>",
+			end: "<%= @lesson.ending %>",
+			allDay: false
+		},
+		true // make the event "stick"
+	);
+	$('#lessonModal').modal('hide');
+<% end %>
