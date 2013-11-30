@@ -3,10 +3,15 @@ module ApplicationHelper
 		!dt.nil? ? dt.strftime("%Y-%m-%d %l:%M") : ''
 	end
 
-	def text_control_group(obj, field)
+	def text_control_group(obj, field, html = {})
+		if !html.has_key?(:class)
+			html[:class] = 'form-control'
+		else
+			html[:class] += ' form-control'
+		end
 		content_tag(:div, class: 'form-group') do
 			concat obj.label field, class: 'col-md-3 control-label'
-			concat content_tag(:div, obj.text_field(field, class: 'form-control'), class: 'col-md-9')
+			concat content_tag(:div, obj.text_field(field, html), class: 'col-md-9')
 		end
 	end
 
