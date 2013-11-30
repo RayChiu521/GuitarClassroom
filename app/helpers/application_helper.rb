@@ -10,6 +10,13 @@ module ApplicationHelper
 		end
 	end
 
+	def static_control_group(obj, field)
+		content_tag(:div, class: 'form-group') do
+			concat obj.label field, class: 'col-md-3 control-label'
+			concat content_tag(:div, content_tag(:p, obj.object[field], class: 'form-control-static') , class: 'col-md-9')
+		end
+	end
+
 	def password_control_group(obj, field)
 		content_tag(:div, class: 'form-group') do
 			concat obj.label field, class: 'col-md-3 control-label'
