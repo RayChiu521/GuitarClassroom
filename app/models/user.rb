@@ -34,6 +34,10 @@ class User < ActiveRecord::Base
     !self.in?(Group.teacher.users).blank?
   end
 
+  def group_titles
+    self.groups.map { |group| group.title }
+  end
+
   def self.authenticate(account, password)
     user = find_by_account(account)
     if user && user.user_password && user.user_password.authenticate_password(password)
