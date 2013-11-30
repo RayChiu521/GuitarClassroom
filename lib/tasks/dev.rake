@@ -8,10 +8,11 @@ namespace :dev do
 	task :fake => :environment do
 
     puts "Create a teacher."
-    Group.teacher.users.create(account: 'Teacher', password: 'pw', password_confirmation: 'pw')
+    Group.teacher.users.create(account: 't', nickname: 'Teacher', password: 'pw', password_confirmation: 'pw')
 
-    puts "Create a student"
-    Group.student.users.create(account: 'Student', password: 'pw', password_confirmation: 'pw')
-
+    puts "Create 10 students"
+    1.upto(10) do |n|
+    	Group.student.users.create(account: "s#{n}", nickname: "Student#{n}", password: 'pw', password_confirmation: 'pw')
+    end
 	end
 end
