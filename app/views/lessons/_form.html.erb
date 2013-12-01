@@ -34,7 +34,11 @@
 		</div>
 	</div>
 
-	<%= text_control_group(f, 'payment') %>
+	<% if is_admin? or is_teacher? %>
+		<%= text_control_group(f, 'payment') %>
+	<% else %>
+		<%= text_control_group(f, 'payment', { disabled: "disabled" }) %>
+	<% end %>
 	<%= textarea_control_group(f, 'content', { rows: 10 }) %>
 
 	<div class="form-group">
