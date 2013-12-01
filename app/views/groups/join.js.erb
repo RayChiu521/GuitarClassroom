@@ -1,0 +1,8 @@
+<% if @user.errors.any? %>
+	alert('<%= @user.errors.full_messages.to_sentence %>');
+<% else %>
+	$('#userGroupsContainer').empty()
+												   .html('<%= escape_javascript(render 'user_groups') %>');
+  $('#groupUsersContainer').empty()
+  												 .html('<%= escape_javascript(render 'group_users') %>');
+<% end %>

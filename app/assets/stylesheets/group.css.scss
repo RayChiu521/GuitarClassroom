@@ -1,0 +1,20 @@
+
+#userGroupsContainer {
+	.user-group-wrapper {
+		padding: 0 0 10px 5px;
+
+		.group-label-wrapper {
+			display: inline-block;
+
+			.label {
+				display: inline-block;
+				padding: 10px;
+				width: 100px;
+			}
+		}
+
+		.none {
+			display: none;
+		}
+	}
+}

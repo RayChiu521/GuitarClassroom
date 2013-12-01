@@ -1,0 +1,12 @@
+<h2><%= "#{@user.nickname}(#{@user.account})" %></h2>
+
+<% @groups.each do |group| %>
+	<div class="user-group-wrapper">
+		<%= group_label([group.title]) %>
+		<% if @user.is_member_of?(group) %>
+			<%= link_to "Quit", quit_group_path(group, user_id: @user), method: :post, remote: true, class: "btn btn-default" %>
+		<% else %>
+			<%= link_to "Join", join_group_path(group, user_id: @user), method: :post, remote: true, class: "btn btn-default" %>
+		<% end %>
+	</div>
+<% end %>
