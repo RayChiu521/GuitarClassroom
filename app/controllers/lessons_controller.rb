@@ -100,7 +100,14 @@ class LessonsController < ApplicationController
 		end
 
 		def lesson_params
-			params.require(:lesson).permit(:beginning, :ending, :payment, :content, :teacher_id, student_ids: [])
+			params.require(:lesson)
+						.permit(:beginning,
+										:ending,
+										:payment,
+										:content,
+										:teacher_id,
+										student_ids: [],
+										song_ids: [])
 		end
 
 		def render_failure_by_json
