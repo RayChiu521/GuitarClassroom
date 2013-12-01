@@ -42,6 +42,19 @@ class User < ActiveRecord::Base
     self.groups.map { |group| group.title }
   end
 
+  def join_group!(group)
+    errors.add(:groups, "You have joined the [#{group.title}] group before!") and return if is_member_of?(group)
+    self.groups << group
+  end
+
+  def quit_group!(group)
+    self.groups.delete(group)
+  end
+
+  def is_member_of?(group)
+    self.groups.include?(group)
+  end
+
   def self.authenticate(account, password)
     user = find_by_account(account)
     if user && user.user_password && user.user_password.authenticate_password(password)
