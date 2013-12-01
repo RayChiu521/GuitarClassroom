@@ -15,5 +15,5 @@ Group.create!(title: 'Visitor', is_admin: false) if Group.find_by_title('Visitor
 if User.find_by_account('admin').nil?
 	Group.find_by_title('Admin')
 			 .users
-			 .create(account: 'admin', password: 'admin', password_confirmation: 'admin')
+			 .create(account: 'admin', nickname: 'Admin', password: 'admin', password_confirmation: 'admin')
 end
