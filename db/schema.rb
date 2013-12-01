@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131201085146) do
+ActiveRecord::Schema.define(version: 20131201110127) do
 
   create_table "arrangements", force: true do |t|
     t.integer "user_id"
@@ -55,6 +55,8 @@ ActiveRecord::Schema.define(version: 20131201085146) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.text     "youtube_embed"
+    t.string   "songable_type"
+    t.integer  "songable_id"
   end
 
   add_index "songs", ["user_id"], name: "index_songs_on_user_id", using: :btree
