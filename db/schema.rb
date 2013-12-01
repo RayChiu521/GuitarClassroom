@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131201053450) do
+ActiveRecord::Schema.define(version: 20131201075830) do
 
   create_table "arrangements", force: true do |t|
     t.integer "user_id"
@@ -46,6 +46,17 @@ ActiveRecord::Schema.define(version: 20131201053450) do
 
   add_index "memberships", ["group_id"], name: "index_memberships_on_group_id", using: :btree
   add_index "memberships", ["user_id"], name: "index_memberships_on_user_id", using: :btree
+
+  create_table "songs", force: true do |t|
+    t.string   "title"
+    t.string   "singer"
+    t.string   "youtube_link"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
+
+  add_index "songs", ["user_id"], name: "index_songs_on_user_id", using: :btree
 
   create_table "user_passwords", force: true do |t|
     t.integer  "user_id"
