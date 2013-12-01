@@ -10,7 +10,10 @@
 			title: "<%= @lesson.calendar_title %>",
 			start: "<%= @lesson.beginning %>",
 			end: "<%= @lesson.ending %>",
-			allDay: false
+			allDay: false,
+			className: "lesson-title",
+			backgroundColor: "<%= @lesson.payment > 0 ? '#008ED2' : '' %>",
+			textColor: "<%= @lesson.payment > 0 ? '#FEF6E3' : '' %>"
 		},
 		true // make the event "stick"
 	);

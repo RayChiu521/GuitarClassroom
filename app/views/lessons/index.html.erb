@@ -16,6 +16,7 @@
 <%= content_for :head do %>
 <%= stylesheet_link_tag    "fullcalendar", media: "all" %>
 <%= stylesheet_link_tag		 "bootstrap-datetimepicker.min", media: "all" %>
+<%= stylesheet_link_tag		 "lesson", media: "all" %>
 <%= javascript_include_tag "jquery-ui.custom.min" %>
 <%= javascript_include_tag "fullcalendar.min" %>
 <%= javascript_include_tag "bootstrap-datetimepicker" %>
@@ -45,6 +46,8 @@
 			droppable: false,
 			selectable: true,
 			selectHelper: true,
+			eventColor: '#FEF6E3',
+			eventTextColor: '#008ED2',
 			select: function(start, end, allDay) {
 				lessonEvent.new(start, end);
 				calendar.fullCalendar('unselect');
@@ -60,7 +63,10 @@
 						start: "<%= lesson.beginning %>",
 						end: "<%= lesson.ending %>",
 						title: "<%= lesson.calendar_title %>",
-						allDay: false
+						allDay: false,
+						className: "lesson-title",
+						backgroundColor: "<%= lesson.payment > 0 ? '#008ED2' : '' %>",
+						textColor: "<%= lesson.payment > 0 ? '#FEF6E3' : '' %>"
 					},
 				<% end %>
 			],
