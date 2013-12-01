@@ -3,23 +3,18 @@
 	<a data-remote="true" href="/lessons/new" id="saveLesson"></a>
 </div>
 
-<!-- Modal -->
-<div id="lessonModal" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Lesson</h4>
-      </div>
-      <div class="modal-body">
-				<div id="lessonContainer"></div>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+<div class="row" id="calendarContainer">
+	<!-- Calendar -->
+	<div id="calendar"></div>
+</div>
 
-<!-- Calendar -->
-<div id="calendar"></div>
+<div class="row" id="lessonContainer">
+	<p class="pull-right">
+		<%= link_to "back", '#', class: 'btn btn-link', id: 'backToCalendar' %>
+	</p>
+	<%= render 'shared/content_title', title: 'Lesson' %>
+	<div id="lessonForm"></div>
+</div>
 
 <%= content_for :head do %>
 <%= stylesheet_link_tag    "fullcalendar", media: "all" %>
@@ -30,6 +25,13 @@
 
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
+
+		$('#lessonContainer').hide();
+		$('#backToCalendar').click(function (e) {
+			e.preventDefault();
+			$('#lessonContainer').hide();
+			$('#calendarContainer').show();
+		});
 
 		var lessonEvent = {
 			$saveLesson: $('#saveLesson'),

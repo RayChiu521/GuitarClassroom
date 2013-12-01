@@ -1,6 +1,9 @@
 <% if @lesson.errors.any? %>
 	alert('<%= @lesson.errors.full_messages.to_sentence %>');
 <% else %>
+	$('#lessonContainer').hide();
+	$('#calendarContainer').show();
+
 	calendar.fullCalendar('removeEvents', <%= @lesson.id %>)
 					.fullCalendar('renderEvent',
 						{
@@ -12,5 +15,4 @@
 						},
 						true // make the event "stick"
 					);
-	$('#lessonModal').modal('hide');
 <% end %>

@@ -1,3 +1,4 @@
-$('#lessonContainer').empty()
-										 .html('<%= escape_javascript(render "form") %>');
-$('#lessonModal').modal({});
+$('#lessonForm').empty()
+								.html('<%= escape_javascript(render "form") %>');
+$('#lessonContainer').show();
+$('#calendarContainer').hide();
