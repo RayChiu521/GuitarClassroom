@@ -1,4 +1,12 @@
 $('#lessonForm').empty()
 								.html('<%= escape_javascript(render "form") %>');
+$('#lessonForm').find('.form-footer')
+								.append('<a href="#" class="btn btn-default back-to-calendar">Cancel</a>');
+$('#lessonForm').find('.back-to-calendar')
+								.click(function (e) {
+									e.preventDefault();
+									$('#lessonContainer').hide();
+									$('#calendarContainer').show();
+								});
 $('#lessonContainer').show();
 $('#calendarContainer').hide();

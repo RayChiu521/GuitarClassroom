@@ -9,9 +9,6 @@
 </div>
 
 <div class="row" id="lessonContainer">
-	<p class="pull-right">
-		<%= link_to "back", '#', class: 'btn btn-link', id: 'backToCalendar' %>
-	</p>
 	<%= render 'shared/content_title', title: 'Lesson' %>
 	<div id="lessonForm"></div>
 </div>
@@ -27,11 +24,6 @@
 	$(document).ready(function() {
 
 		$('#lessonContainer').hide();
-		$('#backToCalendar').click(function (e) {
-			e.preventDefault();
-			$('#lessonContainer').hide();
-			$('#calendarContainer').show();
-		});
 
 		var lessonEvent = {
 			$saveLesson: $('#saveLesson'),

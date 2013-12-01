@@ -49,7 +49,7 @@ class LessonsController < ApplicationController
 	def edit
 		respond_to do |format|
 			format.html
-			format.js
+			format.js { render :new }
 		end
 	end
 

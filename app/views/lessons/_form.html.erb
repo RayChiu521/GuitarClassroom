@@ -37,7 +37,7 @@
 	<%= textarea_control_group(f, 'content', { rows: 10 }) %>
 
 	<div class="form-group">
-		<div class="col-md-offset-3 col-md-9">
+		<div class="col-md-offset-3 col-md-9 form-footer">
 			<%= f.submit @lesson.new_record? ? "Create" : "Edit", class: "btn btn-success" %>
 			<% if !@lesson.new_record? %>
 				<%= link_to "Destroy", lesson_path(@lesson), class: "btn btn-danger", remote: true, method: :delete %>
