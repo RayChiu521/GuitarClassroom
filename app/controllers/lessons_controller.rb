@@ -5,10 +5,17 @@ class LessonsController < ApplicationController
 	before_action :set_lesson, only: [:show, :edit, :update, :destroy]
 
 	def index
-		@lessons = Lesson.period(params[:beginning], params[:endding])
+		if is_admin?
+			@lessons = Lesson.period(params[:beginning], params[:endding])
+		elsif is_teacher?
+			@lessons = current_user.teachings.period(params[:beginning], params[:endding])
+		else
+			@lessons = current_user.lessons.period(params[:beginning], params[:endding])
+		end
+
 		respond_to do |format|
 			format.html
-			format.json { render json: @lessons.include(methods: [:calendar_title]) }
+			format.json { render json: @lessons.to_json(methods: :calendar_title) }
 		end
 	end
 
@@ -93,7 +100,7 @@ class LessonsController < ApplicationController
 		end
 
 		def lesson_params
-			params.require(:lesson).permit(:beginning, :ending, :content, :teacher_id, student_ids: [])
+			params.require(:lesson).permit(:beginning, :ending, :payment, :content, :teacher_id, student_ids: [])
 		end
 
 		def render_failure_by_json
