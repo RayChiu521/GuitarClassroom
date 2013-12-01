@@ -1,7 +1,7 @@
 
 <%= form_for @user, html: {class: "form-horizontal"} do |f| %>
 
-	<%= text_control_group(f, 'account', { disabled: 'disabled' }) %>
+	<%= text_control_group(f, 'account', (@user.new_record? ? {} : { disabled: 'disabled' })) %>
 	<%= password_control_group(f, 'password') %>
 	<%= password_control_group(f, 'password_confirmation') %>
 	<%= text_control_group(f, 'nickname') %>
