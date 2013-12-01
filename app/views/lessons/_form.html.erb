@@ -30,7 +30,7 @@
 	<div class="form-group">
 		<%= f.label :students, class: "col-md-3 control-label" %>
 		<div class="col-md-9">
-			<%= f.collection_select :student_ids, Group.student.users, :id, :nickname, {}, { class: "form-control", multiple: true } %>
+			<%= f.collection_select :student_ids, Group.student_users(current_user), :id, :nickname, {}, { class: "form-control", multiple: true } %>
 		</div>
 	</div>
 

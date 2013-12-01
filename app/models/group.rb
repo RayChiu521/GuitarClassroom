@@ -22,6 +22,14 @@ class Group < ActiveRecord::Base
 		Group.find_by_title('Visitor')
 	end
 
+	def self.student_users(user)
+		if user.is_teacher? or user.is_admin?
+			Group.student.users
+		else
+			[user]
+		end
+	end
+
 	def self.default_group
 		Group.visitor
 	end
