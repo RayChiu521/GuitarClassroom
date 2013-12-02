@@ -3,11 +3,7 @@ class SongsController < ApplicationController
 	before_action :set_song, :check_auth, only: [:show, :edit, :update, :destroy]
 
 	def index
-		if current_user.is_teacher? or current_user.is_admin?
-			@songs = Song.all
-		else
-			@songs = current_user.songs
-		end
+		@songs = Song.all
 	end
 
 	def show
