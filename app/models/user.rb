@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
 	validates :account, presence: true, uniqueness: true
 	validates :password, confirmation: true, presence: { on: :create }
 	validates :password_confirmation, presence: { on: :create }
+  validates :nickname, presence: true
 
 	before_save :encrypt_password
 	after_create :default_membership
