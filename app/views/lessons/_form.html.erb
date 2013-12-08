@@ -70,10 +70,66 @@
 	<% end %>
 </div>
 
+<div id="mediaContainer"></div>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#lesson_beginning, #lesson_ending').datetimepicker({
 		 	pickSeconds: false
 		});
+
+		var displayMedia = {
+			media: [],
+			detection: function () {
+				var str = $('#lesson_content').val();
+				var patt1 = /https?:\/\/[^\s]+\.(jpg|png|bmp)/img;
+				var result = str.match(patt1);
+				var $container = $('#mediaContainer');
+				if (result && result.length) {
+					for (var i = 0; i < result.length; i++) {
+						var exist = false;
+						for (var j = 0; j < this.media.length; j++) {
+							if (this.media[j].url === result[i]) {
+								exist = true;
+								break;
+							}
+						}
+						if (!exist) {
+							var $img = $('<img src="' + result[i] + '" />');
+							$container.append($img);
+							this.media.push({
+								url: result[i],
+								$img: $img
+							});
+						}
+					}
+
+					for (var i = this.media.length - 1; i >= 0; i--) {
+						var exist = false;
+						for (var j = 0; j < result.length; j++) {
+							if (this.media[i].url === result[j]) {
+								exist = true;
+								break;
+							}
+						}
+						if (!exist) {
+							this.media.splice(i, 1);
+						}
+					}
+				}
+				else {
+					this.media.splice(0, this.media.length);
+					$container.empty();
+				}
+
+				console.log(this.media.length);
+			}
+		};
+
+		$('#lesson_content').keyup(function (event) {
+			displayMedia.detection();
+		});
+
+		displayMedia.detection();
 	});
 </script>
