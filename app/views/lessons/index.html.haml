@@ -16,7 +16,7 @@
 	= javascript_include_tag 'bootstrap-datetimepicker'
 
 	:javascript
-		$(document).ready(function() {
+		var ready = function () {
 			$('#lessonContainer').hide();
 			var lessonEvent = {
 				$saveLesson: $('#saveLesson'),
@@ -78,4 +78,7 @@
 					}
 		    }
 			});
-		});
+		};
+
+		$(document).ready(ready);
+		$(document).on('page:load', ready);
