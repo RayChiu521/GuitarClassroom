@@ -1,6 +1,6 @@
 module ApplicationHelper
 	def display_datetime(dt)
-		!dt.nil? ? dt.strftime("%Y-%m-%d %l:%M") : ''
+		!dt.nil? ? dt.strftime("%Y-%m-%d %H:%M") : ''
 	end
 
 	def text_control_group(obj, field, html_attributes = {})
