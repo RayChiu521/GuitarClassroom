@@ -64,7 +64,7 @@
 			media: [],
 			detection: function () {
 				var str = $('#lesson_content').val();
-				var patt1 = /https?:\/\/[^\s]+\.(jpg|png|bmp)/img;
+				var patt1 = /https?:\/\/[^\s]+\.(jpg|png|bmp|mp3|ogg)/img;
 				var result = str.match(patt1);
 				var $container = $('#mediaContainer');
 				if (result && result.length) {
@@ -77,12 +77,7 @@
 							}
 						}
 						if (!exist) {
-							var $img = $('<img src="' + result[i] + '" />');
-							$container.append($img);
-							this.media.push({
-								url: result[i],
-								$img: $img
-							});
+							this.addMedia(result[i]);
 						}
 					}
 
@@ -95,7 +90,7 @@
 							}
 						}
 						if (!exist) {
-							this.media.splice(i, 1);
+							this.removeMedia(i);
 						}
 					}
 				}
@@ -103,6 +98,38 @@
 					this.media.splice(0, this.media.length);
 					$container.empty();
 				}
+			},
+			addMedia: function (url) {
+				var $container = $('#mediaContainer'),
+					$media;
+				var pattMp3 = /mp3$/,
+					pattOgg = /ogg$/,
+					pattImg = /(jpg|png|bmp)$/;
+				if (url.match(pattMp3) || url.match(pattOgg)) {
+					$media = $('<div class="well text-center">' +
+							'<audio controls>' +
+								'<source src="' + url +'" type="audio/mpeg">' +
+								'<source src="' + url +'" type="audio/ogg">' +
+								'<embed height="50" width="100" src="' + url +'">' +
+							'</audio>' +
+						'</div>')
+				}
+				else if (url.match(pattImg)) {
+					$media = $('<img src="' + url + '" />');
+				}
+				else {
+					return;
+				}
+
+				$container.append($media);
+				this.media.push({
+					url: url,
+					$media: $media
+				});
+			},
+			removeMedia: function (index) {
+				this.media[index].$media.remove();
+				this.media.splice(index, 1);
 			}
 		};
 
