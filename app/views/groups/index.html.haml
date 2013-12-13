@@ -1,0 +1,14 @@
+
+= render 'shared/content_title', title: "User Group"
+
+/ User list
+.col-md-6
+	#groupUsersContainer
+		= render 'group_users'
+
+/ User groups
+.col-md-6
+	#userGroupsContainer
+
+= content_for :head do
+	= stylesheet_link_tag "group", media: "all", "data-turbolinks-track" => true

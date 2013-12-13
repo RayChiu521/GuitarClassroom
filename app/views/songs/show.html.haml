@@ -1,0 +1,15 @@
+
+%p.pull-right
+	= link_to "back", :back, class: 'btn btn-link'
+= render 'shared/content_title', title: "#{@song.title}"
+.well
+	= form_for @song, html: { class: "form-horizontal" }  do |f|
+		= static_control_group(f, 'title')
+		= static_control_group(f, 'singer')
+		= static_control_group(f, 'youtube_link')
+		= static_control_group(f, 'youtube_embed')
+		.form-group
+			.col-md-offset-3.col-md-9
+				= link_to "Edit", edit_song_path(@song), class: "btn btn-default"
+.text-center
+	= raw @song.youtube_embed

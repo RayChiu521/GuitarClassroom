@@ -1,0 +1,81 @@
+
+#lessonOperations
+	%a#saveLesson{ href: '/lessons/new', data: { remote: 'true' }}
+.row#calendarContainer
+	#calendar
+.row#lessonContainer
+	=render 'shared/content_title', title: 'Lesson'
+	#lessonForm
+
+- content_for :head do
+	= stylesheet_link_tag 'fullcalendar', media: 'all'
+	= stylesheet_link_tag 'bootstrap-datetimepicker.min', media: 'all'
+	= stylesheet_link_tag 'lesson', media: 'all'
+	= javascript_include_tag 'jquery-ui.custom.min'
+	= javascript_include_tag 'fullcalendar.min'
+	= javascript_include_tag 'bootstrap-datetimepicker'
+
+	:javascript
+		$(document).ready(function() {
+			$('#lessonContainer').hide();
+			var lessonEvent = {
+				$saveLesson: $('#saveLesson'),
+				new: function (start, end) {
+					this.$saveLesson
+							.attr('href', '/lessons/new?beginning=' + start + '&ending=' + end)
+							.click();
+				},
+				edit: function (id) {
+					this.$saveLesson
+							.attr('href', '/lessons/' + id + '/edit')
+					    .click();
+				}
+			};
+			var calendar = window.calendar = $('#calendar').fullCalendar({
+				editable: false,
+				droppable: false,
+				selectable: true,
+				selectHelper: true,
+				eventColor: '#FEF6E3',
+				eventTextColor: '#008ED2',
+				select: function(start, end, allDay) {
+					lessonEvent.new(start, end);
+					calendar.fullCalendar('unselect');
+				},
+				eventClick: function(event) {
+					lessonEvent.edit(event.id);
+					return false;
+				},
+				events: #{lesson_calender_events(@lessons)},
+				viewRender: function(view, element) {
+					if (calendar) {
+						var calendarView = calendar.fullCalendar('getView'),
+							beginning = $.fullCalendar.formatDate(calendarView.start, 'yyyy-MM-dd HH:mm'),
+							ending = $.fullCalendar.formatDate(calendarView.end, 'yyyy-MM-dd HH:mm');
+						$.ajax({
+							url: "#{lessons_path}/?beginning=" + beginning + "&ending=" + ending,
+							dataType: 'json',
+							type: 'get',
+							cache: false
+						})
+						.done(function (data) {
+							calendar.fullCalendar('removeEvents');
+							if (data && data.length) {
+								for (var i = 0; i < data.length; i++) {
+									calendar.fullCalendar('renderEvent',
+										{
+											id: data[i].id,
+											title: data[i].calendar_title,
+											start: data[i].beginning,
+											end: data[i].ending,
+											allDay: false
+										},
+										true
+									);
+								}
+							}
+						});
+					}
+		    }
+			});
+		});
