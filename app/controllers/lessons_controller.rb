@@ -77,7 +77,8 @@ class LessonsController < ApplicationController
 	end
 
 	def destroy
-		if @lesson.destroy
+		if @lesson.valid?
+			@lesson.destroy
 			respond_to do |format|
 				format.html { redirect_to :index }
 				format.json { render json: @lesson}

@@ -16,7 +16,6 @@ class Lesson < ActiveRecord::Base
 	validates :current_user, presence: true
 	validate :validate_teacher_group, :validate_arrangement_for_others
 
-	before_destroy :validate_arrangement_for_others
 
 
 	def self.period(beginning = nil, ending = nil)
