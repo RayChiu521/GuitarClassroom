@@ -21,7 +21,7 @@
 		.form-group
 			= f.label :students, class: "col-md-3 control-label"
 			.col-md-9
-				= f.collection_select :student_ids, Group.student_users(current_user), :id, :nickname, {}, { class: "form-control", multiple: false }
+				= f.collection_select :student_ids, Group.student_users(current_user), :id, :nickname, {}, { class: "form-control chosen-select", multiple: true }
 
 		- if is_admin? or is_teacher?
 			= text_control_group(f, 'payment')
@@ -46,6 +46,11 @@
 		$('#lesson_beginning, #lesson_ending').datetimepicker({
 			format: 'Y-m-d H:i',
 			mask: true
+		});
+
+		$('.chosen-select').chosen({
+			search_contains: true,
+			width: '100%'
 		});
 
 		var displayMedia = {
