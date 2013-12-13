@@ -1,25 +1,25 @@
 !!!
 %html
-%head
-  %meta{ charset: "utf-8" }
-  %meta{ name: "viewport", content: "width=device-width", "initial-scale" => "1.0"}
-  %title GuitarClassroom
-  %meta{ name: "description", content: ""}
-  %meta{ name: "author", content: ""}
-  = stylesheet_link_tag  "application", media: "all", "data-turbolinks-track" => true
-  = javascript_include_tag "application", "data-turbolinks-track" => true
+  %head
+    %meta{ charset: "utf-8" }
+    %meta{ name: "viewport", content: "width=device-width", "initial-scale" => "1.0"}
+    %title GuitarClassroom
+    %meta{ name: "description", content: ""}
+    %meta{ name: "author", content: ""}
+    = stylesheet_link_tag  "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
 
-  = csrf_meta_tags
-  = yield(:head)
-%body
-  %header
-    .navbar.navbar-default{ role: "navigation" }
-      .navbar-header
-        %a.navbar-brand{ href: "#" } Guitar Classroom
-      = render 'layouts/navigation'
-  #main{ role: "main" }
-    .container
-      .row
-        = render 'layouts/messages'
-        = yield
-      %footer
+    = csrf_meta_tags
+    = yield(:head)
+  %body
+    %header
+      .navbar.navbar-default{ role: "navigation" }
+        .navbar-header
+          %a.navbar-brand{ href: "#" } Guitar Classroom
+        = render 'layouts/navigation'
+    #main{ role: "main" }
+      .container
+        .row
+          = render 'layouts/messages'
+          = yield
+        %footer
