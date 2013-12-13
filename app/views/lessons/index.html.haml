@@ -9,11 +9,11 @@
 
 - content_for :head do
 	= stylesheet_link_tag 'fullcalendar', media: 'all'
-	= stylesheet_link_tag 'bootstrap-datetimepicker.min', media: 'all'
+	= stylesheet_link_tag 'jquery.datetimepicker', media: 'all'
 	= stylesheet_link_tag 'lesson', media: 'all'
 	= javascript_include_tag 'jquery-ui.custom.min'
 	= javascript_include_tag 'fullcalendar.min'
-	= javascript_include_tag 'bootstrap-datetimepicker'
+	= javascript_include_tag 'jquery.datetimepicker'
 
 	:javascript
 		var ready = function () {

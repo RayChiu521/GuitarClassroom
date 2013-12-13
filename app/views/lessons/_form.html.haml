@@ -1,31 +1,18 @@
 = form_for @lesson, remote: true, html: { class: "form-horizontal" } do |f|
-	.col-md-6
+	.col-sm-8.col-md-7.col-lg-6
 		.form-group
-			= f.label :beginning, class: "col-md-3 control-label"
-			#lesson_beginning.input-group.col-md-9.input-append
-				%input#lesson_lesson_beginning.form-control{ type: 'text',
+			= f.label "Date", class: "col-md-3 control-label"
+			.input-group.col-md-4
+				%input#lesson_beginning.form-control{ type: 'text',
 		    	name: 'lesson[beginning]',
 		    	value: display_datetime(@lesson.beginning),
 		    	data: { format: 'yyyy-MM-dd hh:mm' }}
-				%span.add-on.input-group-addon
-					%i.glyphicon.glyphicon-calendar{ data: { "time-icon" => 'glyphicon glyphicon-time', "date-icon" => 'glyphicon glyphicon-calendar' } }
-		.form-group
-			= f.label :ending, class: "col-md-3 control-label"
-			#lesson_ending.input-group.col-md-9.input-append
-				%input#lesson_lesson_ending.form-control{ type: 'text',
+			.input-group.col-md-4
+				%input#lesson_ending.form-control{ type: 'text',
 		    	name: 'lesson[ending]',
 		    	value: display_datetime(@lesson.ending),
 		    	data: { format: 'yyyy-MM-dd hh:mm' }}
-				%span.add-on.input-group-addon
-					%i.glyphicon.glyphicon-calendar{ data: { "time-icon" => 'glyphicon glyphicon-time', "date-icon" => 'glyphicon glyphicon-calendar' } }
 
-		- if is_admin? or is_teacher?
-			= text_control_group(f, 'payment')
-		- else
-			= text_control_group(f, 'payment', { disabled: "disabled" })
-		= textarea_control_group(f, 'content', { rows: 10 })
-
-	.col-md-6
 		.form-group
 			= f.label :teacher, class: "col-md-3 control-label"
 			.col-md-9
@@ -34,14 +21,14 @@
 		.form-group
 			= f.label :students, class: "col-md-3 control-label"
 			.col-md-9
-				= f.collection_select :student_ids, Group.student_users(current_user), :id, :nickname, {}, { class: "form-control", multiple: true }
+				= f.collection_select :student_ids, Group.student_users(current_user), :id, :nickname, {}, { class: "form-control", multiple: false }
 
-		.form-group
-			= f.label :songs, class: "col-md-3 control-label"
-			.col-md-9
-				= f.collection_select :song_ids, Song.all, :id, :title, {}, { class: "form-control", multiple: true }
+		- if is_admin? or is_teacher?
+			= text_control_group(f, 'payment')
+		- else
+			= text_control_group(f, 'payment', { disabled: "disabled" })
+		= textarea_control_group(f, 'content', { rows: 3 })
 
-	.col-md-12
 		.form-group
 			.col-md-offset-3.col-md-9.form-footer
 				= f.submit @lesson.new_record? ? "Create" : "Edit", class: "btn btn-success"
@@ -57,7 +44,8 @@
 :javascript
 	$(document).ready(function() {
 		$('#lesson_beginning, #lesson_ending').datetimepicker({
-		 	pickSeconds: false
+			format: 'Y-m-d H:i',
+			mask: true
 		});
 
 		var displayMedia = {
