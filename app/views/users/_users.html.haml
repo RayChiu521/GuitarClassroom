@@ -7,6 +7,7 @@
 			%th Email
 			%th Cellphone
 			%th Groups
+			%th
 	%tbody
 		- users.each_with_index do |user, index|
 			%tr
@@ -16,3 +17,4 @@
 				%td= user.email
 				%td= user.cellphone
 				%td= group_label(user.group_titles)
+				%td= link_to 'delete', user_path(user), method: :delete, confirm: "Are you sure?"

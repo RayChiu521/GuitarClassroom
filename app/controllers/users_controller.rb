@@ -37,6 +37,18 @@ class UsersController < ApplicationController
 		end
 	end
 
+	def destroy
+		@user.current_user = current_user
+		if @user.destroy
+			flash[:notice] = "User was destroyed."
+			redirect_to users_path
+		else
+			binding.pry
+			flash[:alert] = @user.errors.full_messages.join(', ')
+			redirect_to users_path
+		end
+	end
+
 
 	private
 

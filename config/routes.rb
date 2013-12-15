@@ -6,7 +6,7 @@ GuitarClassroom::Application.routes.draw do
   root 'lessons#index'
 
   resources :sessions, only: [:create, :destroy]
-  resources :users, except: [:destroy] do
+  resources :users do
     member do
       get 'groups' => 'groups#user_groups'
     end

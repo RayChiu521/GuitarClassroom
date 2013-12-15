@@ -1,7 +1,7 @@
 # encoding: utf-8
 class User < ActiveRecord::Base
 
-	attr_accessor :password, :password_confirmation
+	attr_accessor :password, :password_confirmation, :current_user
 
 	has_many :memberships
 	has_many :groups, through: :memberships, dependent: :destroy
@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
 
 	before_save :encrypt_password
 	after_create :default_membership
+  before_destroy :is_teacher_or_admin
 
 	def encrypt_password
     if password.present?
@@ -56,6 +57,11 @@ class User < ActiveRecord::Base
 
   def is_member_of?(group)
     self.groups.include?(group)
+  end
+
+  def is_teacher_or_admin
+    errors.add(:current_user, "You can't do that.") and return false if current_user.blank?
+    errors.add(:current_user, "You can't do that.") and return false if !current_user.is_teacher? && !current_user.is_admin?
   end
 
   def self.authenticate(account, password)
